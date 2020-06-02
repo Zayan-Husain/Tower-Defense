@@ -7,12 +7,14 @@ class enemy extends yentity {
     this.speed = 1.75;
     this.enemy_type = "ground";
     this.type = "enemy";
+    this.hp = 3;
   }
   update() {
     super.update();
     var t = this;
     t.move();
     t.reflect();
+    t.collideBullet();
   }
   move() {
     if (this.behavior == "normal") {
@@ -34,6 +36,21 @@ class enemy extends yentity {
     var s = this.hit_test("sign", 0, 0);
     if (s) {
       this.dir = s.dir;
+    }
+  }
+  lose_hp(dmg) {
+    var t = this;
+    t.hp -= dmg;
+    if (t.hp <= 0) {
+      t.world.remove(this);
+    }
+  } //end lose hp
+  collideBullet() {
+    var t = this;
+    var b = t.hit_test("bullet", 0, 0);
+    if (b) {
+      t.lose_hp(b.dmg);
+      t.world.remove(b);
     }
   }
 }

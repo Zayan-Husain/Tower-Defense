@@ -25,7 +25,6 @@ class yentity {
   init() {
     var t = this;
 
-
     this.sprite = createSprite(this.x, this.y, this.w, this.h);
 
     if (t.grafic_type == "img") {
@@ -143,8 +142,10 @@ class yentity {
 
   update() {
     var t = this;
-	if(!t.sprite){return;}
-   //make sure xy == sprite xy
+    if (!t.sprite) {
+      return;
+    }
+    //make sure xy == sprite xy
     if (t.x != t.sprite.position.x || t.y != t.sprite.position.y) {
       t.x = t.sprite.position.x;
       t.y = t.sprite.position.y;
@@ -222,22 +223,29 @@ class yentity {
   rand(range) {
     return range * Math.random() + 1;
   } //end rand
-  
+
   move_to(targ) {
     var t = this;
-	
-	if(t.x>targ.x){t.move_by(-t.speed,0);}
-	if(t.x<targ.x){t.move_by(t.speed,0);}
-	if(t.y>targ.y){t.move_by(0,-t.speed);}
-	if(t.y<targ.y){t.move_by(0,t.speed);}
+
+    if (t.x > targ.x) {
+      t.move_by(-t.speed, 0);
+    }
+    if (t.x < targ.x) {
+      t.move_by(t.speed, 0);
+    }
+    if (t.y > targ.y) {
+      t.move_by(0, -t.speed);
+    }
+    if (t.y < targ.y) {
+      t.move_by(0, t.speed);
+    }
   } //end rand
-  
-  distanse(targ)
-  {
-	  var t = this;
-	  dx = t.x-targ.x;
-	  dy = t.y-targ.y;
-		
-	  return Math.sqrt(dx * dx + dy * dy);
-   }//end distanse
+
+  distanse(targ) {
+    var t = this;
+    var dx = t.x - targ.x;
+    var dy = t.y - targ.y;
+
+    return Math.sqrt(dx * dx + dy * dy);
+  } //end distanse
 } //end yentity
