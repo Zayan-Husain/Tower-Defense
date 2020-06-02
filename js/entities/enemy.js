@@ -5,6 +5,8 @@ class enemy extends yentity {
     this.grafic_type = "none";
     this.dir = "up";
     this.speed = 1.75;
+    this.enemy_type = "ground";
+    this.type = "enemy";
   }
   update() {
     super.update();

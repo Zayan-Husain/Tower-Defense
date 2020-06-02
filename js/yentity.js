@@ -222,4 +222,22 @@ class yentity {
   rand(range) {
     return range * Math.random() + 1;
   } //end rand
+  
+  move_to(targ) {
+    var t = this;
+	
+	if(t.x>targ.x){t.move_by(-t.speed,0);}
+	if(t.x<targ.x){t.move_by(t.speed,0);}
+	if(t.y>targ.y){t.move_by(0,-t.speed);}
+	if(t.y<targ.y){t.move_by(0,t.speed);}
+  } //end rand
+  
+  distanse(targ)
+  {
+	  var t = this;
+	  dx = t.x-targ.x;
+	  dy = t.y-targ.y;
+		
+	  return Math.sqrt(dx * dx + dy * dy);
+   }//end distanse
 } //end yentity

@@ -14,11 +14,13 @@ class game_world extends world {
     var s3 = new sign(this.wh.w / 2 - 20, this.wh.h - 130, "up");
     var s4 = new sign(this.wh.w / 2 - 20, this.wh.h - 360, "left");
     var e = new enemy(this.wh.w / 1.5, this.wh.h + 20);
+	var b = new bullet(0,0,e);
     t.add(s);
     t.add(s2);
     t.add(s3);
     t.add(s4);
     t.add(e);
+    t.add(b);
   }
 
   update() {
