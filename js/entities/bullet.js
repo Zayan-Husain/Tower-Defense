@@ -6,7 +6,7 @@ class bullet extends yentity {
     this.type = "bullet";
     this.grafic_type = "none";
     this.dmg = 1;
-    this.dmg_type = "snormal";
+    this.dmg_type = "normal";
     this.movement_type = "normal";
     this.targ = targ2;
     this.life_timer = new ytimer(70);
@@ -33,7 +33,7 @@ class bullet extends yentity {
     var t = this;
     t.move_to(t.targ);
     //outside of screen
-    if (t.x < 0 || t.x > t.world.wh.w || t.y < 0 || t.y > t.world.wh.h || t.life_timer.finished()) {
+    if (t.x < 0 || t.x > t.world.wh.w || t.y < 0 || t.y > t.world.wh.h || t.life_timer.finished() || !t.targ) {
       t.world.remove(this);
     }
   } //end move

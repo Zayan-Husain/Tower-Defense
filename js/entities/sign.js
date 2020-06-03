@@ -7,10 +7,9 @@ class sign extends yentity {
     this.dir = dir2;
     this.grafic_type = "none";
   } //end constructor
-  init()
-  {
-	  super.init();
-	  this.sprite.visible = false;
+  init() {
+    super.init();
+    // this.sprite.visible = false;
   }
   update() {
     var t = this;

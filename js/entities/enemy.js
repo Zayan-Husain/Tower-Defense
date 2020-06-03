@@ -4,10 +4,16 @@ class enemy extends yentity {
     this.behavior = "normal";
     this.grafic_type = "none";
     this.dir = "up";
-    this.speed = 1.75;
+    this.speed = 3;
+    this.original_speed = this.speed;
+    this.freeze1 = new ytimer(40);
+    this.poison1 = new ytimer(100);
+    this.poison_dmg = new ytimer(20);
+    this.start_poison = false;
+    this.start_freeze = false;
     this.enemy_type = "ground";
     this.type = "enemy";
-    this.hp = 3;
+    this.hp = 10;
   }
   update() {
     super.update();
@@ -15,7 +21,27 @@ class enemy extends yentity {
     t.move();
     t.reflect();
     t.collideBullet();
+    t.effect();
   }
+  effect() {
+    if (this.start_freeze) {
+      this.speed = this.original_speed / 2;
+      console.log(this.speed);
+      if (this.freeze1.finished()) {
+        this.start_freeze = false;
+        this.speed = this.original_speed;
+      }
+    }
+    if (this.start_poison) {
+      if (this.poison_dmg.finished()) {
+        this.lose_hp(5);
+        console.log(this.hp);
+      }
+      if (this.poison1.finished()) {
+        this.start_poison = false;
+      }
+    }
+  } // end effect
   move() {
     if (this.behavior == "normal") {
       if (this.dir == "left") {
@@ -49,8 +75,31 @@ class enemy extends yentity {
     var t = this;
     var b = t.hit_test("bullet", 0, 0);
     if (b) {
+      if (b.dmg_type == "freeze") {
+        this.start_freeze = true;
+      }
+      if (b.dmg_type == "poison") {
+        this.start_poison = true;
+      }
+      if (b.dmg_type == "confuse") {
+        this.oppositeDirection();
+      }
       t.lose_hp(b.dmg);
       t.world.remove(b);
+    }
+  }
+  oppositeDirection() {
+    if (this.dir == "up") {
+      this.dir = "down";
+    }
+    if (this.dir == "down") {
+      this.dir = "up";
+    }
+    if (this.dir == "right") {
+      this.dir = "left";
+    }
+    if (this.dir == "left") {
+      this.dir = "right";
     }
   }
 }
