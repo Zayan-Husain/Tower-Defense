@@ -83,7 +83,6 @@ class enemy extends yentity {
       }
       if (b.dmg_type == "confuse") {
         this.oppositeDirection();
-		console.log(this.dir);
       }
       t.lose_hp(b.dmg);
       t.world.remove(b);
@@ -92,15 +91,11 @@ class enemy extends yentity {
   oppositeDirection() {
     if (this.dir == "up") {
       this.dir = "down";
-
-    }else
-    if (this.dir == "down") {
+    } else if (this.dir == "down") {
       this.dir = "up";
-    }else
-    if (this.dir == "right") {
+    } else if (this.dir == "right") {
       this.dir = "left";
-    }else
-    if (this.dir == "left") {
+    } else if (this.dir == "left") {
       this.dir = "right";
     }
   }

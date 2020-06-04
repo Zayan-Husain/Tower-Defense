@@ -17,6 +17,7 @@ class game_world extends world {
     var tower2 = new tower(300, 60);
     var tower3 = new tower(370, 260);
     var tower4 = new tower(480, 420);
+    tower4.set_stats(turets[0]);
     // var b = new bullet(0, 0, e);
     t.add(s);
     t.add(s2);

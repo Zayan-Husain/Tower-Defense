@@ -7,12 +7,12 @@ class tower extends yentity {
     this.grafic_type = "none";
     this.is_active = false;
     this.show_range = false;
-		
+
     this.w = 35;
     this.h = 35;
     this.hitbw = 35; //hitbox width
     this.hitbh = 35;
-	
+
     //tower stats
     this.fire_rate = 20;
     this.shoot_timer = new ytimer(this.fire_rate);
@@ -20,14 +20,20 @@ class tower extends yentity {
     this.dmg_type = "confuse";
     this.target_type = "ground";
     this.range = 250;
+    this.name;
+    this.upgrades;
+    this.tooltip2 = new Tooltip(this.x - 50, this.y, 50, 50);
 
-   // this.debug = true;
+    // this.debug = true;
   } //end constructor
-
+  init() {
+    super.init();
+    this.world.add(this.tooltip2);
+  }
   update() {
     super.update();
     var t = this;
-	t.build_tower();
+    t.build_tower();
     t.shot_enemy();
     t.on_click();
   } //end update
@@ -36,41 +42,48 @@ class tower extends yentity {
     super.render();
     var t = this;
 
-	//if not active
-	if(!this.is_active)
-	{
-	  fill(255, 255, 102);
-      ellipse(t.x, t.y,25, 25);
-	  this.sprite.visible = false;
-	}
-	
+    //if not active
+    if (!this.is_active) {
+      fill(255, 255, 102);
+      ellipse(t.x, t.y, 25, 25);
+      this.sprite.visible = false;
+    }
+
     if (t.show_range && t.is_active) {
       //draw ellipse
       fill(255, 255, 102, 127);
       ellipse(t.x, t.y, t.range, t.range);
     }
   } //end render
-  
-  set_stats(data) 
-  {
-	  
-  }//end set_stats
-  
-  build_tower() 
-  {
-	var t = this;
-    if (t.clicked(2) && !this.is_active) 
-	{
-		t.is_active = true;
-		this.sprite.visible = true;
-		//show buy tower popup
-	}  
-  }//end build_tower
+
+  set_stats(data) {
+    this.name = data[0];
+    this.range = data[1];
+    this.dmg = data[2];
+    this.fire_rate = data[3];
+    this.cost = data[4];
+    this.dmg_type = data[5];
+    this.target_type = data[6];
+    this.upgrades = data[7];
+    this.shoot_timer = new ytimer(this.fire_rate);
+  } //end set_stats
+
+  build_tower() {
+    var t = this;
+    if (t.clicked(2) && !this.is_active) {
+      t.is_active = true;
+      this.sprite.visible = true;
+      //show buy tower popup
+      this.tooltip2.is_active = true;
+    }
+  } //end build_tower
   on_click() {
     var t = this;
-    if (t.clicked(2) && t.is_active) {
+    if (t.clicked(3) && t.is_active) {
       //toggle show range on click
-      t.show_range = !t.show_range;
+      t.show_range = true;
+    } else {
+      t.show_range = false;
     }
   } //end on_click
 
@@ -97,9 +110,6 @@ class tower extends yentity {
         t.world.add(b);
       }
     }
-  }//end shot_enemy
-  
-  
-  
+  } //end shot_enemy
 } //end class
 ///////////////end tower///////////////////
