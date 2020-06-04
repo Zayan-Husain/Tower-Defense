@@ -7,6 +7,12 @@ class tower extends yentity {
     this.grafic_type = "none";
     this.is_active = false;
     this.show_range = false;
+		
+    this.w = 35;
+    this.h = 35;
+    this.hitbw = 35; //hitbox width
+    this.hitbh = 35;
+	
     //tower stats
     this.fire_rate = 20;
     this.shoot_timer = new ytimer(this.fire_rate);
@@ -14,10 +20,7 @@ class tower extends yentity {
     this.dmg_type = "confuse";
     this.target_type = "ground";
     this.range = 250;
-    this.w = 35;
-    this.h = 35;
-    this.hitbw = 35; //hitbox width
-    this.hitbh = 35;
+
    // this.debug = true;
   } //end constructor
 
