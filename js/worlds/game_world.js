@@ -15,6 +15,8 @@ class game_world extends world {
     var s4 = new sign(this.wh.w / 2 - 20, this.wh.h - 360, "left");
     var sp = new spawner(this.wh.w / 1.5, this.wh.h + 20);
     var tower2 = new tower(300, 60);
+    var tower3 = new tower(370, 260);
+    var tower4 = new tower(480, 420);
     // var b = new bullet(0, 0, e);
     t.add(s);
     t.add(s2);
@@ -22,6 +24,8 @@ class game_world extends world {
     t.add(s4);
     t.add(sp);
     t.add(tower2);
+    t.add(tower3);
+    t.add(tower4);
     // t.add(b);
   }
 
