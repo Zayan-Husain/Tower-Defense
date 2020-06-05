@@ -2,6 +2,7 @@ class game_world extends world {
   constructor(name2, wh2) {
     super(name2);
     this.wh = wh2;
+    this.p = new player();
   }
 
   init() {
@@ -20,6 +21,7 @@ class game_world extends world {
     tower4.set_stats(turets[0]);
     // var b = new bullet(0, 0, e);
     t.add(s);
+    t.add(this.p);
     t.add(s2);
     t.add(s3);
     t.add(s4);
@@ -28,6 +30,20 @@ class game_world extends world {
     t.add(tower3);
     t.add(tower4);
     // t.add(b);
+  }
+
+  buy_tower(tower, type) {
+    var data = this.select_tower_by_name(type)
+    if (this.p.credits >= data[4]) {
+      tower.set_stats(data)
+    }
+  }
+  select_tower_by_name(name) {
+    for (let i = 0; i < turets.length; i++) {
+      if (turets[i][0] == name) {
+        return turets[i];
+      }
+    }
   }
 
   update() {

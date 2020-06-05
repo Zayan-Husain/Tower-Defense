@@ -22,13 +22,14 @@ class tower extends yentity {
     this.range = 250;
     this.name;
     this.upgrades;
-    this.tooltip2 = new Tooltip(this.x - 50, this.y, 50, 50);
+    this.tooltip2 = new Tooltip(this.x + 50, this.y, 100, 100);
 
     // this.debug = true;
   } //end constructor
   init() {
     super.init();
     this.world.add(this.tooltip2);
+    this.buy_tower_btns()
   }
   update() {
     super.update();
@@ -36,7 +37,31 @@ class tower extends yentity {
     t.build_tower();
     t.shot_enemy();
     t.on_click();
+    this.buy_towers_click()
   } //end update
+
+  buy_tower_btns() {
+    var tt = this.tooltip2;
+    tt.normal_tower = tt.add_btn(0, -30, 10, 10);
+    tt.ice_tower = tt.add_btn(0, 0, 10, 10);
+    tt.poison_tower = tt.add_btn(0, 30, 10, 10);
+    tt.hide();
+  }
+  buy_towers_click() {
+    var tt = this.tooltip2;
+    if (tt.normal_tower.clicked(2)) {
+      console.log("normal");
+      tt.hide()
+    }
+    if (tt.ice_tower.clicked(2)) {
+      console.log("ice");
+      tt.hide()
+    }
+    if (tt.poison_tower.clicked(2)) {
+      console.log("poison");
+      tt.hide()
+    }
+  }
 
   render() {
     super.render();
@@ -80,18 +105,17 @@ class tower extends yentity {
   on_click() {
     var t = this;
     //hover for range
-	if (t.clicked(3) && t.is_active) {
+    if (t.clicked(3) && t.is_active) {
       t.show_range = true;
     } else {
       t.show_range = false;
     }
-	//click to show tooltip
-	if (t.clicked(2) && t.is_active) 
-	{
-		this.tooltip2.show();
-	}
-	
-	
+    //click to show tooltip
+    if (t.clicked(2) && t.is_active) {
+      this.tooltip2.show();
+    }
+
+
   } //end on_click
 
   shot_enemy() {
