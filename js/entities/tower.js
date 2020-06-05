@@ -74,17 +74,24 @@ class tower extends yentity {
       t.is_active = true;
       this.sprite.visible = true;
       //show buy tower popup
-      this.tooltip2.is_active = true;
+      this.tooltip2.show();
     }
   } //end build_tower
   on_click() {
     var t = this;
-    if (t.clicked(3) && t.is_active) {
-      //toggle show range on click
+    //hover for range
+	if (t.clicked(3) && t.is_active) {
       t.show_range = true;
     } else {
       t.show_range = false;
     }
+	//click to show tooltip
+	if (t.clicked(2) && t.is_active) 
+	{
+		this.tooltip2.show();
+	}
+	
+	
   } //end on_click
 
   shot_enemy() {
