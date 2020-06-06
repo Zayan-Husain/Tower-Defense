@@ -6,131 +6,122 @@ class Tooltip extends yentity {
     this.children = [];
     this.is_active = false;
     this.grafic_type = "none";
-	this.name = "tooltip";
-	
-	this.xbtn;
+    this.name = "tooltip";
+
+    this.xbtn;
   }
-  
+
   init() {
     super.init();
-	var t = this;
-    t.xbtn = t.add_btn(20,-30,5,5);
-	t.xbtn.sprite.draw = ()=>
-	{
-		 fill(255);
-		 textAlign(CENTER);
-		 text("x", 0, 0);
-	}
-	t.zi = 998;
-	t.hide();
+    var t = this;
+    t.xbtn = t.add_btn(20, -30, 5, 5);
+    t.xbtn.sprite.draw = () => {
+      fill(255);
+      textAlign(CENTER);
+      text("x", 0, 0);
+    }
+    t.zi = 998;
+    t.hide();
   }
   update() {
     super.update();
     if (!this.is_active) {
       return;
     }
-	var t = this;
-	t.click_x();
-	//t.update_children()
-  
+    var t = this;
+    t.click_x();
+    //t.update_children()
+
   }
-  
-  update_children()
-  {
-	var t = this;
-	
-	var e;
+
+  update_children() {
+    var t = this;
+
+    var e;
     for (var i in t.children) {
       e = t.children[i];
       //e.sx(t.x+e.x);
-	  //e.sy(t.y+e.y);
+      //e.sy(t.y+e.y);
     }
   }//end update_children
-  
-  remove_children() 
-  {
-	var t = this;
-	
-	var e;
+
+  remove_children() {
+    var t = this;
+
+    var e;
     for (var i in t.children) {
-      if(i>0)
-	  {
-		  e = t.children[i];
-		  t.world.remove(e);
-	  }
+      if (i > 0) {
+        e = t.children[i];
+        t.world.remove(e);
+      }
     }
   }
-  
-  hide()
-  {	
+
+  hide() {
     var t = this;
-	
-	var e;
+
+    var e;
     for (var i in t.children) {
       e = t.children[i];
-	  //hide child
+      //hide child
       e.sprite.visible = false;
-	  
+
     }
-	//hide tooltip
-	t.sprite.visible = false;
-	//disable tooltip
-	t.is_active = false;
+    //hide tooltip
+    t.sprite.visible = false;
+    //disable tooltip
+    t.is_active = false;
   }//end hide
-  
-  show()
-  {
-	var t = this;
-	
-	var e;
+
+  show() {
+    var t = this;
+
+    var e;
     for (var i in t.children) {
       e = t.children[i];
-	  //show child
+      //show child
       e.sprite.visible = true;
-	  
+
     }
-	//show tooltip
-	t.sprite.visible = true;
-	
-	t.is_active = true;
-	 
+    //show tooltip
+    t.sprite.visible = true;
+
+    t.is_active = true;
+
   }//end show
-	  
-  
+
+
   render() {
     super.render();
 
   }
-  
-  click_x()
-  {
-	  var t = this;
-	  if(!t.xbtn){return;}
-	  
-	  if(t.xbtn.clicked(2))
-	  {
-		 t.hide(); 
-	  }
-	  
-  }//end click_x
-  
-  add_btn(x,y,w,h,g)
-  {
-	  var t = this;
-	  //entity to add
-	  var e = new yentity(x,y,g);
-	  //add it to children
-	  t.children[t.children.length] = e;
 
-	  e.grafic_type = "none";
-	  if(g){e.grafic_type = "img";}
-	  e.type = t.name;//for easy manipulation
-	  t.world.add(e);
-	  //pos reltive to parent
-	  e.sx(t.x+e.x);
-	  e.sy(t.y+e.y);
-	  e.zi =999;
-	  return e;
-	  
+  click_x() {
+    var t = this;
+    if (!t.xbtn) { return; }
+
+    if (t.xbtn.clicked(2)) {
+      t.hide();
+    }
+
+  }//end click_x
+
+  add_btn(x, y, w, h, g) {
+    var t = this;
+    //entity to add
+    var e = new yentity(x, y, g);
+    //add it to children
+    t.children[t.children.length] = e;
+
+    e.grafic_type = "none";
+    if (g) { e.grafic_type = "img"; }
+    e.type = t.name;//for easy manipulation
+    t.world.add(e);
+    //pos reltive to parent
+    e.sx(t.x + e.x);
+    e.sy(t.y + e.y);
+    e.zi = 999;
+    return e;
+
   }//end add_btn
 }

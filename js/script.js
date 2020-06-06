@@ -9,17 +9,17 @@ var twoers_s;
 function setup() {
   createCanvas(yscreen.w, yscreen.h);
   frameRate(60);
-  
-  	var tframes = yeng.create_sprite_frames("normal",59,52,
-	[0,0
-	,1,0
-	,2,0
-	,3,0
-	,4,0
-	,5,0
-	,6,0
-	,7,0]);
-  twoers_s = loadSpriteSheet("img/turet_smap.png",tframes);
+
+  var tframes = yeng.create_sprite_frames("normal", 59, 52,
+    [0, 0
+      , 1, 0
+      , 2, 0
+      , 3, 0
+      , 4, 0
+      , 5, 0
+      , 6, 0
+      , 7, 0]);
+  twoers_s = loadSpriteSheet("img/turet_smap.png", tframes);
 
   //create worlds
   var ygame_world = new game_world("game_world", yscreen);

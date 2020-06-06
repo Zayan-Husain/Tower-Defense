@@ -5,7 +5,7 @@ class tower extends yentity {
     this.speed = 0;
     this.type = "tower";
     this.grafic_type = "sprite";
-	this.tframe =0;
+    this.tframe = 0;
     this.is_active = false;
     this.show_range = false;
 
@@ -43,43 +43,46 @@ class tower extends yentity {
 
   buy_tower_btns() {
     var tt = this.tooltip2;
-	var ph = loadImage("img/ph.jpg");
-    tt.normal_tower = tt.add_btn(0, -30, 10, 10,ph);
-	
-    tt.ice_tower = tt.add_btn(0, 0, 10, 10,ph);
-    tt.poison_tower = tt.add_btn(0, 30, 10, 10,ph);
+    var ph = loadImage("img/ph.jpg");
+    tt.normal_tower = tt.add_btn(0, -30, 10, 10, ph);
+
+    tt.ice_tower = tt.add_btn(0, 0, 10, 10, ph);
+    tt.poison_tower = tt.add_btn(0, 30, 10, 10, ph);
     tt.hide();
+  }
+  do_buy(name) {
+    var tt = this.tooltip2;
+    var w = tt.world;
+    w.buy_tower(this, name);
+    tt.hide();
+    tt.remove_children();
   }
   buy_towers_click() {
     var tt = this.tooltip2;
-	var w = tt.world;
+    var w = tt.world;
     if (tt.normal_tower.clicked(2)) {
-      console.log("normal");
-	  w.buy_tower(this, "normal");
-	  tt.hide();
-	  tt.remove_children();
-	  
+      this.do_buy("normal");
+
     }
     if (tt.ice_tower.clicked(2)) {
-      console.log("ice");
-      tt.hide()
+      this.do_buy("ice");
     }
     if (tt.poison_tower.clicked(2)) {
-      console.log("poison");
-      tt.hide()
+      this.do_buy("poison");
     }
+
   }
 
   render() {
     super.render();
     var t = this;
-	
-	//change turret img
-	t.sprite.animation.changeFrame(t.tframe);
-	t.sprite.animation.stop();
-	
-    
-	//if not active
+
+    //change turret img
+    t.sprite.animation.changeFrame(t.tframe);
+    t.sprite.animation.stop();
+
+
+    //if not active
     if (!this.is_active) {
       fill(255, 255, 102);
       ellipse(t.x, t.y, 25, 25);
@@ -146,9 +149,9 @@ class tower extends yentity {
       e = enemies[i];
       //check distance between tower and enemy
       diste = this.distanse(e);
-	  //if distance is less then range and shot timer finished
+      //if distance is less then range and shot timer finished
       if (diste < t.range && t.shoot_timer.finished() &&
-	  (this.target_type == e.enemy_type || this.target_type=="both")) {
+        (this.target_type == e.enemy_type || this.target_type == "both")) {
         //create a bullet targeting the enemy
         b = new bullet(t.x, t.y, e);
         b.dmg_type = this.dmg_type;
