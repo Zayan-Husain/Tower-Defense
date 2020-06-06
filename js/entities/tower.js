@@ -146,8 +146,9 @@ class tower extends yentity {
       e = enemies[i];
       //check distance between tower and enemy
       diste = this.distanse(e);
-      //if distance is less then range and shot timer finished
-      if (diste < t.range && t.shoot_timer.finished() && this.target_type == e.enemy_type) {
+	  //if distance is less then range and shot timer finished
+      if (diste < t.range && t.shoot_timer.finished() &&
+	  (this.target_type == e.enemy_type || this.target_type=="both")) {
         //create a bullet targeting the enemy
         b = new bullet(t.x, t.y, e);
         b.dmg_type = this.dmg_type;
