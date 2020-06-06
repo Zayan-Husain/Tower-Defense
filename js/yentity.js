@@ -30,9 +30,8 @@ class yentity {
     if (t.grafic_type == "img") {
       t.grafic.resize(t.w, t.h);
       t.sprite.addImage("normal", t.grafic);
-
       // var imgs = t.sprite.animation.images;
-      // console.log(imgs)
+      //console.log(imgs)
     }
     if (t.grafic_type == "sprite") {
       t.sprite.addAnimation("normal", t.grafic);
@@ -157,13 +156,14 @@ class yentity {
   } //end update
 
   render() {
-    ////////render///////
+    ////////render//////////////////////////
     var t = this;
     if (t.grafic_type == "img") {
       tint(255, t.alpha);
       t.grafic.resize(t.w, t.h);
       t.sprite.changeAnimation(t.current_anim);
     }
+	
     if (t.grafic_type == "sprite") {
       t.sprite.changeAnimation(t.current_anim);
     }

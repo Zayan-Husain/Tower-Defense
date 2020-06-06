@@ -18,7 +18,7 @@ class game_world extends world {
     var tower2 = new tower(300, 60);
     var tower3 = new tower(370, 260);
     var tower4 = new tower(480, 420);
-    tower4.set_stats(turets[0]);
+   // tower4.set_stats(turets[0]);
     // var b = new bullet(0, 0, e);
     t.add(s);
     t.add(this.p);
@@ -35,7 +35,8 @@ class game_world extends world {
   buy_tower(tower, type) {
     var data = this.select_tower_by_name(type)
     if (this.p.credits >= data[4]) {
-      tower.set_stats(data)
+      tower.set_stats(data);
+	  this.p.credits -= data[4];
     }
   }
   select_tower_by_name(name) {
@@ -46,8 +47,24 @@ class game_world extends world {
     }
   }
 
+  ui()
+  {
+	camera.off();
+    this.ytext(50, 22, "credits: " + this.p.credits);
+
+    camera.on();
+  }//end ui
+  
   update() {
     super.update();
     var t = this;
   }
+  
+  render() {
+    super.render();
+    var t = this;
+	t.ui();
+  }//end render
+  
+  
 }

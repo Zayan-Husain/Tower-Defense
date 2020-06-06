@@ -1,10 +1,11 @@
 ///////////////tower///////////////////
 class tower extends yentity {
-  constructor(x2, y2, g) {
-    super(x2, y2, g);
+  constructor(x2, y2) {
+    super(x2, y2, twoers_s);//twoers_s is in script.js
     this.speed = 0;
     this.type = "tower";
-    this.grafic_type = "none";
+    this.grafic_type = "sprite";
+	this.tframe =0;
     this.is_active = false;
     this.show_range = false;
 
@@ -19,7 +20,7 @@ class tower extends yentity {
     this.dmg = 1;
     this.dmg_type = "confuse";
     this.target_type = "ground";
-    this.range = 250;
+    this.range = 0;
     this.name;
     this.upgrades;
     this.tooltip2 = new Tooltip(this.x + 50, this.y, 100, 100);
@@ -42,16 +43,22 @@ class tower extends yentity {
 
   buy_tower_btns() {
     var tt = this.tooltip2;
-    tt.normal_tower = tt.add_btn(0, -30, 10, 10);
-    tt.ice_tower = tt.add_btn(0, 0, 10, 10);
-    tt.poison_tower = tt.add_btn(0, 30, 10, 10);
+	var ph = loadImage("img/ph.jpg");
+    tt.normal_tower = tt.add_btn(0, -30, 10, 10,ph);
+	
+    tt.ice_tower = tt.add_btn(0, 0, 10, 10,ph);
+    tt.poison_tower = tt.add_btn(0, 30, 10, 10,ph);
     tt.hide();
   }
   buy_towers_click() {
     var tt = this.tooltip2;
+	var w = tt.world;
     if (tt.normal_tower.clicked(2)) {
       console.log("normal");
-      tt.hide()
+	  w.buy_tower(this, "normal");
+	  tt.hide();
+	  tt.remove_children();
+	  
     }
     if (tt.ice_tower.clicked(2)) {
       console.log("ice");
@@ -66,8 +73,13 @@ class tower extends yentity {
   render() {
     super.render();
     var t = this;
-
-    //if not active
+	
+	//change turret img
+	t.sprite.animation.changeFrame(t.tframe);
+	t.sprite.animation.stop();
+	
+    
+	//if not active
     if (!this.is_active) {
       fill(255, 255, 102);
       ellipse(t.x, t.y, 25, 25);
@@ -90,6 +102,7 @@ class tower extends yentity {
     this.dmg_type = data[5];
     this.target_type = data[6];
     this.upgrades = data[7];
+    this.tframe = data[8];
     this.shoot_timer = new ytimer(this.fire_rate);
   } //end set_stats
 
