@@ -27,11 +27,13 @@ class tower extends yentity {
 
     // this.debug = true;
   } //end constructor
+  
   init() {
     super.init();
     this.world.add(this.tooltip2);
     this.buy_tower_btns()
-  }
+  }//end init
+  
   update() {
     super.update();
     var t = this;
@@ -49,14 +51,19 @@ class tower extends yentity {
     tt.ice_tower = tt.add_btn(0, 0, 10, 10, ph);
     tt.poison_tower = tt.add_btn(0, 30, 10, 10, ph);
     tt.hide();
-  }
+  }//end buy_tower_btns
+  
   do_buy(name) {
     var tt = this.tooltip2;
     var w = tt.world;
     w.buy_tower(this, name);
-    tt.hide();
+   
     tt.remove_children();
-  }
+	this.tower_stats();/////
+	
+	 tt.hide();
+  }//end do_buy
+  
   buy_towers_click() {
     var tt = this.tooltip2;
     var w = tt.world;
@@ -71,7 +78,27 @@ class tower extends yentity {
       this.do_buy("poison");
     }
 
-  }
+  }//end buy_towers_click
+  
+  ////
+  tower_stats()
+  {
+	var t = this;
+	var tt = this.tooltip2;
+
+    tt.name_txt = tt.add_btn(0, -20, 10, 10);	
+	tt.name_txt.sprite.draw=t.draw_txt(t.name,0,0);
+	
+  }//end tower_stat
+  
+  /////
+  draw_txt(txt,x,y)
+  {
+	return ()=>{
+	fill(255);
+    textAlign(CENTER);
+    text(txt, 0, 0);};  
+  }//end draw_txt
 
   render() {
     super.render();
