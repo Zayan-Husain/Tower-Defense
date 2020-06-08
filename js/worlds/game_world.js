@@ -18,7 +18,7 @@ class game_world extends world {
     var tower2 = new tower(300, 60);
     var tower3 = new tower(370, 260);
     var tower4 = new tower(480, 420);
-   // tower4.set_stats(turets[0]);
+    // tower4.set_stats(turets[0]);
     // var b = new bullet(0, 0, e);
     t.add(s);
     t.add(this.p);
@@ -36,8 +36,10 @@ class game_world extends world {
     var data = this.select_tower_by_name(type)
     if (this.p.credits >= data[4]) {
       tower.set_stats(data);
-	  this.p.credits -= data[4];
+      this.p.credits -= data[4];
+      return true;
     }
+    return false;
   }
   select_tower_by_name(name) {
     for (let i = 0; i < turets.length; i++) {
@@ -47,24 +49,23 @@ class game_world extends world {
     }
   }
 
-  ui()
-  {
-	camera.off();
+  ui() {
+    camera.off();
     this.ytext(50, 22, "credits: " + this.p.credits);
 
     camera.on();
   }//end ui
-  
+
   update() {
     super.update();
     var t = this;
   }
-  
+
   render() {
     super.render();
     var t = this;
-	t.ui();
+    t.ui();
   }//end render
-  
-  
+
+
 }

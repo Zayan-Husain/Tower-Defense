@@ -24,16 +24,17 @@ class tower extends yentity {
     this.name;
     this.upgrades;
     this.tooltip2 = new Tooltip(this.x + 50, this.y, 100, 100);
+    this.phase = "buy";
 
     // this.debug = true;
   } //end constructor
-  
+
   init() {
     super.init();
     this.world.add(this.tooltip2);
     this.buy_tower_btns()
   }//end init
-  
+
   update() {
     super.update();
     var t = this;
@@ -52,19 +53,25 @@ class tower extends yentity {
     tt.poison_tower = tt.add_btn(0, 30, 10, 10, ph);
     tt.hide();
   }//end buy_tower_btns
-  
+
   do_buy(name) {
     var tt = this.tooltip2;
     var w = tt.world;
-    w.buy_tower(this, name);
-   
-    tt.remove_children();
-	this.tower_stats();/////
-	
-	 tt.hide();
+    if (w.buy_tower(this, name)) {
+      tt.remove_children();
+      this.tower_stats();/////
+      this.phase = "stats";
+    } else {
+      return;
+    }
+
+    tt.hide();
   }//end do_buy
-  
+
   buy_towers_click() {
+    if (this.phase !== "buy") {
+      return;
+    }
     var tt = this.tooltip2;
     var w = tt.world;
     if (tt.normal_tower.clicked(2)) {
@@ -79,25 +86,26 @@ class tower extends yentity {
     }
 
   }//end buy_towers_click
-  
-  ////
-  tower_stats()
-  {
-	var t = this;
-	var tt = this.tooltip2;
 
-    tt.name_txt = tt.add_btn(0, -20, 10, 10);	
-	tt.name_txt.sprite.draw=t.draw_txt(t.name,0,0);
-	
-  }//end tower_stat
-  
+  ////
+  tower_stats() {
+    var t = this;
+    var tt = this.tooltip2;
+
+    tt.name_txt = tt.add_btn(0, -20, 10, 10);
+    tt.name_txt.sprite.draw = t.draw_txt(t.name, 0, 0);
+    tt.dmg_txt = tt.add_btn(0, 0, 10, 10);
+    tt.dmg_txt.sprite.draw = t.draw_txt("Damage: " + t.dmg, 0, 0);
+    // tt.name_txt.sprite.draw = t.draw_txt(t.name, 0, 0);
+    //
+  } //end tower_stat
   /////
-  draw_txt(txt,x,y)
-  {
-	return ()=>{
-	fill(255);
-    textAlign(CENTER);
-    text(txt, 0, 0);};  
+  draw_txt(txt, x, y) {
+    return () => {
+      fill(255);
+      textAlign(CENTER);
+      text(txt, x, y);
+    };
   }//end draw_txt
 
   render() {
