@@ -6,6 +6,7 @@ class spawner extends yentity {
     this.type = "spawner";
     this.spawnTimer = new ytimer(60);
     this.grafic_type = "none";
+    this.stats = [];
   } //end constructor
 
   update() {
@@ -20,8 +21,12 @@ class spawner extends yentity {
 
     if (t.spawnTimer.finished()) {
       var e = new enemy(this.x, this.y);
+      e.set_stats(this.stats);
       t.world.add(e);
     }
+  }
+  set_enemy(stats) {
+    this.stats = stats;
   }
 } //end class
 ///////////////end spawner///////////////////

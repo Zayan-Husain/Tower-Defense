@@ -13,7 +13,6 @@ class tower extends yentity {
     this.h = 35;
     this.hitbw = 35; //hitbox width
     this.hitbh = 35;
-
     //tower stats
     this.fire_rate = 20;
     this.shoot_timer = new ytimer(this.fire_rate);

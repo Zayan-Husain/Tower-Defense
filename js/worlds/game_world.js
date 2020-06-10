@@ -20,6 +20,7 @@ class game_world extends world {
     var tower4 = new tower(480, 420);
     // tower4.set_stats(turets[0]);
     // var b = new bullet(0, 0, e);
+    sp.set_enemy(enemy_db[0]);
     t.add(s);
     t.add(this.p);
     t.add(s2);

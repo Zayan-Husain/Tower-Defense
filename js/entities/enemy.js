@@ -4,8 +4,6 @@ class enemy extends yentity {
     this.behavior = "normal";
     this.grafic_type = "none";
     this.dir = "up";
-    this.speed = 3;
-    this.original_speed = this.speed;
     this.freeze1 = new ytimer(40);
     this.poison1 = new ytimer(100);
     this.poison_dmg = new ytimer(20);
@@ -13,7 +11,12 @@ class enemy extends yentity {
     this.start_freeze = false;
     this.enemy_type = "ground";
     this.type = "enemy";
+    //stats
     this.hp = 10;
+    this.name = "";
+    this.enemy_type = "ground";
+    this.speed = 3;
+    this.original_speed = this.speed;
   }
   update() {
     super.update();
@@ -25,6 +28,7 @@ class enemy extends yentity {
   }
   effect() {
     if (this.start_freeze) {
+      console.log("hit by ice tower")
       this.speed = this.original_speed / 2;
       console.log(this.speed);
       if (this.freeze1.finished()) {
@@ -42,6 +46,13 @@ class enemy extends yentity {
       }
     }
   } // end effect
+  set_stats(stats) {
+    this.name = stats[0]
+    this.hp = stats[1];
+    this.speed = stats[2];
+    this.enemy_type = stats[3];
+    this.original_speed = this.speed;
+  }
   move() {
     if (this.behavior == "normal") {
       if (this.dir == "left") {
@@ -76,6 +87,7 @@ class enemy extends yentity {
     var b = t.hit_test("bullet", 0, 0);
     if (b) {
       if (b.dmg_type == "freeze") {
+        console.log("freeze")
         this.start_freeze = true;
       }
       if (b.dmg_type == "poison") {
