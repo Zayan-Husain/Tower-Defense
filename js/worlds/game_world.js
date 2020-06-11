@@ -20,7 +20,7 @@ class game_world extends world {
     var tower4 = new tower(480, 420);
     // tower4.set_stats(turets[0]);
     // var b = new bullet(0, 0, e);
-    sp.set_enemy(enemy_db[0]);
+    sp.set_enemy(t.select_enemy_by_name("test1"));
     t.add(s);
     t.add(this.p);
     t.add(s2);
@@ -42,13 +42,22 @@ class game_world extends world {
     }
     return false;
   }
-  select_tower_by_name(name) {
-    for (let i = 0; i < turets.length; i++) {
-      if (turets[i][0] == name) {
-        return turets[i];
-      }
-    }
-  }
+	select_tower_by_name(name) {
+
+		for (let i = 0; i < turets.length; i++) {
+			if (turets[i][0] == name) {
+				return turets[i];
+			}
+		}
+	}
+  
+	select_enemy_by_name(name) {
+		for (let i = 0; i < enemy_db.length; i++) {
+		  if (enemy_db[i][0] == name) {
+			return enemy_db[i];
+		  }
+		}
+	}
 
   ui() {
     camera.off();
